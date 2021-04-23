@@ -15,7 +15,7 @@ script:
 
 # Create Docker image for our app and push it to Dockerhub 
 after_success:
-  - if [[ "$TRAVIS_BRANCH" == "aws_deployment" ]]; then
+  - if [[ "$TRAVIS_BRANCH" == "develop" ]]; then
       docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD ;
       docker-compose build ;
       docker tag game-api $DOCKER_USERNAME/game-api ;
@@ -36,6 +36,6 @@ deploy:
   bucket-name: elasticbeanstalk-us-east-1-669582617787
   bucket-path: container-sample
   on:
-    branch: aws_deployment
+    branch: develop
   access_key_id: $AWS_ACCESS_KEY
   secret_access_key: $AWS_SECRET_KEY
