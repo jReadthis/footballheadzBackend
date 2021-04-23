@@ -9,7 +9,7 @@ before_install:
 
 # Test & Build SpringBoot app
 script:
-  - cd /manager-api
+  - cd manager-api
   - ./gradlew build
   - cd ..
 
