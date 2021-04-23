@@ -1,0 +1,20 @@
+com/dmv/footballheadz/config/DynamoDbConfig.java
+ com.dmv.footballheadz.config.DynamoDbConfig
+com/dmv/footballheadz/healthcheck/HealthCheckController.java
+ com.dmv.footballheadz.healthcheck.HealthCheckController
+com/dmv/footballheadz/manager/IRepository.java
+ com.dmv.footballheadz.manager.IRepository
+com/dmv/footballheadz/manager/impl/ManagerService.java
+ com.dmv.footballheadz.manager.impl.ManagerService
+com/dmv/footballheadz/util/DatabaseInitialisation.java
+ com.dmv.footballheadz.util.DatabaseInitialisation
+com/dmv/footballheadz/manager/impl/ManagerRepository.java
+ com.dmv.footballheadz.manager.impl.ManagerRepository
+com/dmv/footballheadz/Application.java
+ com.dmv.footballheadz.Application
+com/dmv/footballheadz/manager/impl/Manager.java
+ com.dmv.footballheadz.manager.impl.Manager
+com/dmv/footballheadz/manager/IService.java
+ com.dmv.footballheadz.manager.IService
+com/dmv/footballheadz/manager/impl/ManagerController.java
+ com.dmv.footballheadz.manager.impl.ManagerController

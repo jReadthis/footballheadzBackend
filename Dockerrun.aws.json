@@ -1,0 +1,86 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "environment": [
+                {
+                    "name": "AWS_PROFILE",
+                    "value": "${AWS_PROFILE}"
+                }
+            ],
+            "essential": true,
+            "image": "nano2583/game-api:1.0",
+            "memory": 512,
+            "mountPoints": [
+                {
+                    "containerPath": "/root/.aws",
+                    "sourceVolume": "~_Aws"
+                }
+            ],
+            "name": "game-api",
+            "portMappings": [
+                {
+                    "containerPort": 80,
+                    "hostPort": 5002
+                }
+            ]
+        },
+        {
+            "environment": [
+                {
+                    "name": "AWS_PROFILE",
+                    "value": "${AWS_PROFILE}"
+                }
+            ],
+            "essential": true,
+            "image": "nano2583/manager-api:1.0",
+            "memory": 512,
+            "mountPoints": [
+                {
+                    "containerPath": "/root/.aws",
+                    "sourceVolume": "~_Aws"
+                }
+            ],
+            "name": "manager-api",
+            "portMappings": [
+                {
+                    "containerPort": 80,
+                    "hostPort": 5001
+                }
+            ]
+        },
+        {
+            "environment": [
+                {
+                    "name": "AWS_PROFILE",
+                    "value": "${AWS_PROFILE}"
+                }
+            ],
+            "essential": true,
+            "image": "nano2583/season-api:1.0",
+            "memory": 512,
+            "mountPoints": [
+                {
+                    "containerPath": "/root/.aws",
+                    "sourceVolume": "~_Aws"
+                }
+            ],
+            "name": "season-api",
+            "portMappings": [
+                {
+                    "containerPort": 80,
+                    "hostPort": 5003
+                }
+            ]
+        }
+    ],
+    "family": "",
+    "volumes": [
+        {
+            "host": {
+                "sourcePath": "~/.aws/"
+            },
+            "name": "~_Aws"
+        }
+    ]
+}

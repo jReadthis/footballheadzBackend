@@ -1,0 +1,62 @@
+version: "3.9"
+services:
+
+  manager-api:
+    image: nano2583/manager-api:1.0
+    environment:
+      - AWS_PROFILE=${AWS_PROFILE}
+    volumes:
+      - ~/.aws/:/root/.aws:ro
+    ports:
+      - "5001:80"
+    networks:
+      - backend
+    mem_limit: 512m
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+
+  game-api:
+    image: nano2583/game-api:1.0
+    environment:
+      - AWS_PROFILE=${AWS_PROFILE}
+    volumes:
+      - ~/.aws/:/root/.aws:ro
+    ports:
+      - "5002:80"
+    networks:
+      - backend
+    mem_limit: 512m
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+
+  season-api:
+    image: nano2583/season-api:1.0
+    environment:
+      - AWS_PROFILE=${AWS_PROFILE}
+    volumes:
+      - ~/.aws/:/root/.aws:ro
+    ports:
+      - "5003:80"
+    networks:
+      - backend
+    mem_limit: 512m
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+  
+networks:
+  backend:
