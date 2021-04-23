@@ -1,0 +1,31 @@
+language: python
+services:
+  - docker
+before_script: pip install docker-compose
+script:
+  # since there's a dependency on mongo, it will build that image also
+  # although we have not added any tests scenario
+  #- docker-compose run service-2 sh -c "pytest"
+after_success:
+  - if [[ "$TRAVIS_BRANCH" == "aws_deployment" ]]; then
+      docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD ;
+      docker-compose build ;
+      docker tag game-api $DOCKER_USERNAME/game-api ;
+      docker tag manager-api $DOCKER_USERNAME/manager-api ;
+      docker tag season-api $DOCKER_USERNAME/season-api ;
+      
+      docker push $DOCKER_USERNAME/game-api ;
+      docker push $DOCKER_USERNAME/manager-api ;
+      docker push $DOCKER_USERNAME/season-api ;
+    fi
+deploy:
+  provider: elasticbeanstalk
+  region: us-east-1
+  app: container-sample
+  env: Containersample-env
+  bucket-name: elasticbeanstalk-us-east-1-669582617787
+  bucket-path: container-sample
+  on:
+    branch: aws_deployment
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
