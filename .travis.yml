@@ -1,11 +1,19 @@
-language: python
+language: java
+jdk:
+  - openjdk8
 services:
   - docker
-before_script: pip install docker-compose
+#before_script: pip install docker-compose
+before_install:
+  - docker pull openjdk:8-jdk-alpine
+
+# Test & Build SpringBoot app
 script:
-  # since there's a dependency on mongo, it will build that image also
-  # although we have not added any tests scenario
-  #- docker-compose run service-2 sh -c "pytest"
+  - cd /manager-api
+  - ./gradlew build
+  - cd ..
+
+# Create Docker image for our app and push it to Dockerhub 
 after_success:
   - if [[ "$TRAVIS_BRANCH" == "aws_deployment" ]]; then
       docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD ;
@@ -18,6 +26,8 @@ after_success:
       docker push $DOCKER_USERNAME/manager-api ;
       docker push $DOCKER_USERNAME/season-api ;
     fi
+
+# Allow Travis to help deploy the app on AWS elasticbeanstalk
 deploy:
   provider: elasticbeanstalk
   region: us-east-1
